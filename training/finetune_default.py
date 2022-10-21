@@ -126,7 +126,7 @@ if __name__ == '__main__':
 
     # Compute sorter order of the count keys
     count_keys = sorted(list(train_counts.keys()))
-
+    '''
     # List of pre-processing functions
     PREPROCESSORS = [
         remove_special_characters]
@@ -149,7 +149,7 @@ if __name__ == '__main__':
 
     train_dev_set = set.union(set(train_charset.keys()), set(dev_charset.keys()))
     print(f"Number of tokens in preprocessed train+dev set : {len(train_dev_set)}")
-
+    '''
     char_model = nemo_asr.models.ASRModel.from_pretrained("stt_en_quartznet15x5", map_location='cpu')
 
     # @title Freeze Encoder { display-mode: "form" }
@@ -183,7 +183,7 @@ if __name__ == '__main__':
     # Setup train, validation, test configs
     with open_dict(cfg):
         # Train dataset
-        cfg.train_ds.manifest_filepath = f"{train_manifest_cleaned},{dev_manifest_cleaned}"
+        cfg.train_ds.manifest_filepath = f"{train_manifest},{dev_manifest}"
         cfg.train_ds.batch_size = 32
         cfg.train_ds.num_workers = 8
         cfg.train_ds.pin_memory = True
@@ -191,24 +191,18 @@ if __name__ == '__main__':
         cfg.train_ds.trim_silence = True
 
         # Validation dataset
-        cfg.validation_ds.manifest_filepath = test_manifest_cleaned
+        cfg.validation_ds.manifest_filepath = test_manifest
         cfg.validation_ds.batch_size = 8
         cfg.validation_ds.num_workers = 8
         cfg.validation_ds.pin_memory = True
         cfg.validation_ds.use_start_end_token = True
         cfg.validation_ds.trim_silence = True
 
-        # Test dataset
-        cfg.test_ds.manifest_filepath = test_manifest_cleaned
-        cfg.test_ds.batch_size = 8
-        cfg.test_ds.num_workers = 8
-        cfg.test_ds.pin_memory = True
-        cfg.test_ds.use_start_end_token = True
-        cfg.test_ds.trim_silence = True
 
     # setup data loaders with new configs
-    char_model.setup_training_data(cfg.train_ds)
-    char_model.setup_multiple_validation_data(cfg.validation_ds)
+        char_model.setup_training_data(cfg.train_ds)
+        char_model.setup_multiple_validation_data(cfg.validation_ds)
+
     # Original optimizer + scheduler
     print(OmegaConf.to_yaml(char_model.cfg.optim))
 
