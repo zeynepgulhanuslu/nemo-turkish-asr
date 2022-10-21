@@ -61,10 +61,9 @@ def get_charset(manifest_data):
     return charset
 
 
-
-
 def remove_special_characters(data):
-    data["text"] = unicode_tr(re.sub(chars_to_ignore_regex, '', data["text"])).lower().strip()
+    data["text"] = re.sub(chars_to_ignore_regex, '', data["text"])
+    data["text"] = unicode_tr(data["text"]).lower().strip()
     return data
 
 
@@ -271,6 +270,5 @@ if __name__ == '__main__':
     config = OmegaConf.structured(config)
 
     logdir = exp_manager.exp_manager(trainer, config)
-
 
     trainer.fit(char_model)
