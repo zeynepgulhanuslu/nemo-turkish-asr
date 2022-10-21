@@ -240,7 +240,7 @@ if __name__ == '__main__':
                           max_epochs=EPOCHS,
                           accumulate_grad_batches=1,
                           enable_checkpointing=False,
-                          logger=True,
+                          logger=False,
                           log_every_n_steps=5,
                           check_val_every_n_epoch=10)
 
