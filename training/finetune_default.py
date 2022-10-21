@@ -27,7 +27,7 @@ import pytorch_lightning as ptl
 import copy
 from omegaconf import OmegaConf, open_dict
 
-chars_to_ignore_regex = '[\,\?\.\!\-\;\:\"\“\%\‘\”\�\…\{\}\【\】\・\。\『\』\、\ー\〜]'  # remove special character tokens
+chars_to_ignore_regex = '[\,\?\.\!\-\;\:\"\“\%\'\‘\”\�\…\{\}\【\】\・\。\『\』\、\ー\〜]'  # remove special character tokens
 
 
 def read_manifest(path):
@@ -153,6 +153,7 @@ if __name__ == '__main__':
     print(f"Number of tokens in preprocessed train+dev set : {len(train_dev_set)}")
 
     char_model = nemo_asr.models.ASRModel.from_pretrained("stt_en_quartznet15x5", map_location='cpu')
+    char_model.change_vocabulary(new_vocabulary=list(train_dev_set))
 
     # @title Freeze Encoder { display-mode: "form" }
     freeze_encoder = True  # @param ["False", "True"] {type:"raw"}
