@@ -84,11 +84,16 @@ if __name__ == '__main__':
 
     parser.add_argument('--manifest', type=str, required=True, help='Manifest directory')
     parser.add_argument('--out', type=str, required=True, help='Out directory')
+    parser.add_argument('--batch_size', type=int, required=True, help='Batch size')
+    parser.add_argument('--num_workers', type=int, required=True, help='Num workers')
+
 
     args = parser.parse_args()
 
     manifest_dir = args.manifest
     out_dir = args.out
+    batch_size = args.batch_size
+    num_workers = args.num_workers
 
     train_manifest_file = os.path.join(manifest_dir, 'nemo-train-manifest.json')
     test_manifest_file = os.path.join(manifest_dir, 'nemo-test-manifest.json')
@@ -191,8 +196,8 @@ if __name__ == '__main__':
         cfg.train_ds.manifest_filepath = f"{train_manifest_cleaned},{dev_manifest_cleaned}"
         cfg.train_ds.labels = list(train_dev_set)
         cfg.train_ds.normalize_transcripts = False
-        cfg.train_ds.batch_size = 32
-        cfg.train_ds.num_workers = 8
+        cfg.train_ds.batch_size = batch_size
+        cfg.train_ds.num_workers = num_workers
         cfg.train_ds.pin_memory = True
         cfg.train_ds.trim_silence = True
 
@@ -200,8 +205,8 @@ if __name__ == '__main__':
         cfg.validation_ds.manifest_filepath = test_manifest_cleaned
         cfg.validation_ds.labels = list(train_dev_set)
         cfg.validation_ds.normalize_transcripts = False
-        cfg.validation_ds.batch_size = 8
-        cfg.validation_ds.num_workers = 8
+        cfg.validation_ds.batch_size = batch_size
+        cfg.validation_ds.num_workers = num_workers
         cfg.validation_ds.pin_memory = True
         cfg.validation_ds.trim_silence = True
 
