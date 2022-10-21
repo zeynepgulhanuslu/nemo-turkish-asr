@@ -44,7 +44,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--manifest', type=str, required=True, help='Manifest directory')
-    parser.add_argument('--manifest', type=str, required=True, help='manifest file')
+
     args = parser.parse_args()
 
     manifest_dir = args.manifest
