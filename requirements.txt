@@ -6,3 +6,5 @@ libsox-fmt-mp3
 text-unidecode
 matplotlib>=3.3.2
 git+https://github.com/NVIDIA/NeMo.git@main#egg=nemo_toolkit[all]
+unicode_tr
+omegaconf
