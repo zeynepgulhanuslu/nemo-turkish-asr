@@ -241,7 +241,7 @@ if __name__ == '__main__':
     else:
         accelerator = 'cpu'
 
-
+    print("accelerator :", accelerator)
     trainer = ptl.Trainer(devices=1,
                           accelerator=accelerator,
                           max_epochs=epochs,
@@ -251,9 +251,10 @@ if __name__ == '__main__':
                           log_every_n_steps=5,
                           check_val_every_n_epoch=10)
 
+
     # Setup model with the trainer
     char_model.set_trainer(trainer)
-
+    print("trainer set")
     # Finally, update the model's internal config
     char_model.cfg = char_model._cfg
 
@@ -271,9 +272,10 @@ if __name__ == '__main__':
             save_best_model=True,
         ),
     )
+    print("model configuration completed")
 
     config = OmegaConf.structured(config)
 
     logdir = exp_manager.exp_manager(trainer, config)
-
+    print('training starts here')
     trainer.fit(char_model)
