@@ -87,6 +87,7 @@ if __name__ == '__main__':
     parser.add_argument('--batch_size', type=int, required=True, help='Batch size')
     parser.add_argument('--num_workers', type=int, required=True, help='Num workers')
     parser.add_argument('--epochs', type=int, required=True, help='Num epochs')
+    parser.add_argument('--device', type=int, required=True, help='Gpu number')
 
 
     args = parser.parse_args()
@@ -96,6 +97,7 @@ if __name__ == '__main__':
     batch_size = args.batch_size
     num_workers = args.num_workers
     epochs = args.epochs
+    device = args.device
 
     train_manifest_file = os.path.join(manifest_dir, 'nemo-train-manifest.json')
     test_manifest_file = os.path.join(manifest_dir, 'nemo-test-manifest.json')
@@ -242,7 +244,7 @@ if __name__ == '__main__':
         accelerator = 'cpu'
 
     print("accelerator :", accelerator)
-    trainer = ptl.Trainer(devices=1,
+    trainer = ptl.Trainer(devices=device,
                           accelerator=accelerator,
                           max_epochs=epochs,
                           accumulate_grad_batches=1,
