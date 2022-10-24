@@ -244,6 +244,8 @@ if __name__ == '__main__':
         accelerator = 'cpu'
 
     print("accelerator :", accelerator)
+    # # specifies all available GPUs (if only one GPU is not occupied, uses one gpu)
+    # Trainer(accelerator="gpu", devices=-1, auto_select_gpus=True)
     trainer = ptl.Trainer(devices=device,
                           accelerator=accelerator,
                           max_epochs=epochs,
@@ -251,6 +253,7 @@ if __name__ == '__main__':
                           enable_checkpointing=False,
                           logger=False,
                           log_every_n_steps=5,
+                          auto_select_gpus=True,
                           check_val_every_n_epoch=10)
 
 
