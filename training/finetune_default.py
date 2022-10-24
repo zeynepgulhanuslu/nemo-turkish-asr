@@ -86,6 +86,7 @@ if __name__ == '__main__':
     parser.add_argument('--out', type=str, required=True, help='Out directory')
     parser.add_argument('--batch_size', type=int, required=True, help='Batch size')
     parser.add_argument('--num_workers', type=int, required=True, help='Num workers')
+    parser.add_argument('--epochs', type=int, required=True, help='Num epochs')
 
 
     args = parser.parse_args()
@@ -94,6 +95,7 @@ if __name__ == '__main__':
     out_dir = args.out
     batch_size = args.batch_size
     num_workers = args.num_workers
+    epochs = args.epochs
 
     train_manifest_file = os.path.join(manifest_dir, 'nemo-train-manifest.json')
     test_manifest_file = os.path.join(manifest_dir, 'nemo-test-manifest.json')
@@ -239,11 +241,10 @@ if __name__ == '__main__':
     else:
         accelerator = 'cpu'
 
-    EPOCHS = 50  # 100 epochs would provide better results, but would take an hour to train
 
     trainer = ptl.Trainer(devices=1,
                           accelerator=accelerator,
-                          max_epochs=EPOCHS,
+                          max_epochs=epochs,
                           accumulate_grad_batches=1,
                           enable_checkpointing=False,
                           logger=False,
