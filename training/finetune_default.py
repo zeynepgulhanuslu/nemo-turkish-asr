@@ -253,7 +253,7 @@ if __name__ == '__main__':
                           enable_checkpointing=False,
                           logger=False,
                           log_every_n_steps=5,
-                          auto_select_gpus=True,
+                          #auto_select_gpus=True,
                           check_val_every_n_epoch=10)
 
 
