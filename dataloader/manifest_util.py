@@ -8,7 +8,7 @@ from collections import defaultdict
 
 def read_manifest(path):
     manifest = []
-    with open(path, 'r') as f:
+    with open(path, 'r', encoding='utf-8') as f:
         for line in tqdm(f, desc="Reading manifest data"):
             line = line.replace("\n", "")
             data = json.loads(line)
@@ -24,6 +24,7 @@ def write_processed_manifest(data, original_path):
     filepath = os.path.join(manifest_dir, new_manifest_name)
     with open(filepath, 'w', encoding='utf-8') as f:
         for datum in tqdm(data, desc="Writing manifest data"):
+            print(datum)
             datum = json.dumps(datum, ensure_ascii=False)
             f.write(f"{datum}\n")
     print(f"Finished writing manifest: {filepath}")

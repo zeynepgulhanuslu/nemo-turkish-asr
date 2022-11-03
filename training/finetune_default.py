@@ -178,7 +178,7 @@ if __name__ == '__main__':
     # Setup train, validation, test configs
     with open_dict(cfg):
         # Train dataset  (Concatenate train manifest cleaned and dev manifest cleaned)
-        cfg.train_ds.manifest_filepath = f"{train_manifest},{dev_manifest}"
+        cfg.train_ds.manifest_filepath = f"{train_manifest_cleaned},{dev_manifest_cleaned}"
         cfg.train_ds.labels = list(train_dev_set)
         cfg.train_ds.normalize_transcripts = False
         cfg.train_ds.batch_size = batch_size
@@ -187,7 +187,7 @@ if __name__ == '__main__':
         cfg.train_ds.trim_silence = True
 
         # Validation dataset  (Use test dataset as validation, since we train using train + dev)
-        cfg.validation_ds.manifest_filepath = test_manifest
+        cfg.validation_ds.manifest_filepath = test_manifest_cleaned
         cfg.validation_ds.labels = list(train_dev_set)
         cfg.validation_ds.normalize_transcripts = False
         cfg.validation_ds.batch_size = batch_size
