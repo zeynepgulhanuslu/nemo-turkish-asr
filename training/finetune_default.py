@@ -27,31 +27,12 @@ import pytorch_lightning as ptl
 import copy
 from omegaconf import OmegaConf, open_dict
 
+from dataloader.manifest_util import read_manifest, write_processed_manifest
+
 chars_to_ignore_regex = '[\,\?\.\!\-\;\:\"\“\%\'\‘\”\�\…\{\}\【\】\・\。\『\』\、\ー\〜]'  # remove special character tokens
 
 
-def read_manifest(path):
-    manifest = []
-    with open(path, 'r', encoding='utf-8') as f:
-        for line in tqdm(f, desc="Reading manifest data"):
-            line = line.replace("\n", "")
-            data = json.loads(line)
-            manifest.append(data)
-    return manifest
 
-
-def write_processed_manifest(data, original_path):
-    original_manifest_name = os.path.basename(original_path)
-    new_manifest_name = original_manifest_name.replace(".json", "_processed.json")
-
-    manifest_dir = os.path.split(original_path)[0]
-    filepath = os.path.join(manifest_dir, new_manifest_name)
-    with open(filepath, 'w', encoding='utf-8') as f:
-        for datum in tqdm(data, desc="Writing manifest data"):
-            datum = json.dumps(datum)
-            f.write(f"{datum}\n")
-    print(f"Finished writing manifest: {filepath}")
-    return filepath
 
 
 def get_charset(manifest_data):
@@ -197,7 +178,7 @@ if __name__ == '__main__':
     # Setup train, validation, test configs
     with open_dict(cfg):
         # Train dataset  (Concatenate train manifest cleaned and dev manifest cleaned)
-        cfg.train_ds.manifest_filepath = f"{train_manifest_cleaned},{dev_manifest_cleaned}"
+        cfg.train_ds.manifest_filepath = f"{train_manifest},{dev_manifest}"
         cfg.train_ds.labels = list(train_dev_set)
         cfg.train_ds.normalize_transcripts = False
         cfg.train_ds.batch_size = batch_size
@@ -206,7 +187,7 @@ if __name__ == '__main__':
         cfg.train_ds.trim_silence = True
 
         # Validation dataset  (Use test dataset as validation, since we train using train + dev)
-        cfg.validation_ds.manifest_filepath = test_manifest_cleaned
+        cfg.validation_ds.manifest_filepath = test_manifest
         cfg.validation_ds.labels = list(train_dev_set)
         cfg.validation_ds.normalize_transcripts = False
         cfg.validation_ds.batch_size = batch_size
