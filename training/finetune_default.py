@@ -42,10 +42,15 @@ def normalize_sentence(sentence):
     clean = clean.replace('‘', '')
     clean_lower = unicode_tr(clean).lower().strip()
     clean_lower = clean_lower.replace('â', 'a') # Â
+    clean_lower = clean_lower.replace('α', 'a') # Â
     clean_lower = clean_lower.replace('û', 'u') # Û
     clean_lower = clean_lower.replace('î', 'i') # Î
     clean_lower = clean_lower.replace('ë', 'e') # Ë
     clean_lower = clean_lower.replace('é', 'e') # É
+    clean_lower = clean_lower.replace('è', 'e') # É
+    clean_lower = clean_lower.replace('н', 'h') # É
+    clean_lower = clean_lower.replace('ι', 'ı') # É
+    clean_lower = clean_lower.replace('ș', 'ş') # É
     return clean_lower
 
 
