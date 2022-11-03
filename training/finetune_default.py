@@ -32,7 +32,21 @@ from dataloader.manifest_util import read_manifest, write_processed_manifest
 chars_to_ignore_regex = '[\,\?\.\!\-\;\:\"\“\%\'\‘\”\�\…\{\}\【\】\・\。\『\』\、\ー\〜]'  # remove special character tokens
 
 
-
+def normalize_sentence(sentence):
+    clean = sentence.translate(str.maketrans('', '', string.punctuation))
+    clean = ''.join([i for i in clean if not i.isdigit()])
+    clean = clean.replace('…', '')
+    clean = clean.replace('”', '')
+    clean = clean.replace('“', '')
+    clean = clean.replace('’', '')
+    clean = clean.replace('‘', '')
+    clean_lower = unicode_tr(clean).lower().strip()
+    clean_lower = clean_lower.replace('â', 'a') # Â
+    clean_lower = clean_lower.replace('û', 'u') # Û
+    clean_lower = clean_lower.replace('î', 'i') # Î
+    clean_lower = clean_lower.replace('ë', 'e') # Ë
+    clean_lower = clean_lower.replace('é', 'e') # É
+    return clean_lower
 
 
 def get_charset(manifest_data):
@@ -46,7 +60,7 @@ def get_charset(manifest_data):
 
 def remove_special_characters(data):
     data["text"] = re.sub(chars_to_ignore_regex, '', data["text"])
-    data["text"] = unicode_tr(data["text"]).lower().strip()
+    data["text"]  = normalize_sentence(data["text"])
     return data
 
 
