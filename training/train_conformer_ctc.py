@@ -27,6 +27,7 @@ def main(cfg):
 
     trainer = pl.Trainer(**cfg.trainer)
     exp_manager(trainer, cfg.get("exp_manager", None))
+
     asr_model = EncDecCTCModel(cfg=cfg.model, trainer=trainer)
 
     # Initialize the weights of the model from another model, if provided via config

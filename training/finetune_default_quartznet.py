@@ -1,31 +1,20 @@
 import argparse
+import copy
 import os
-
-import nemo
-import nemo.collections.asr as nemo_asr
-from nemo.collections.asr.metrics.wer import word_error_rate
-from nemo.utils import logging, exp_manager
-
-import torch
-import torch.nn as nn
-
-# Manifest Utils
-from tqdm.auto import tqdm
-import json
-from collections import defaultdict
 # Preprocessing steps
 import re
-from unicode_tr import unicode_tr
-
-import os
-import glob
-import subprocess
-import tarfile
-import torch
-import pytorch_lightning as ptl
 import string
-import copy
+from collections import defaultdict
+
+import nemo.collections.asr as nemo_asr
+import pytorch_lightning as ptl
+import torch
+import torch.nn as nn
+from nemo.utils import logging, exp_manager
 from omegaconf import OmegaConf, open_dict
+# Manifest Utils
+from tqdm.auto import tqdm
+from unicode_tr import unicode_tr
 
 from dataloader.manifest_util import read_manifest, write_processed_manifest
 
@@ -190,6 +179,7 @@ if __name__ == '__main__':
         logging.info("Model encoder has been un-frozen")
 
     char_model.cfg.labels = list(train_dev_set)
+    print('labels:',char_model.cfg.labels)
     cfg = copy.deepcopy(char_model.cfg)
 
     # Setup train, validation, test configs
