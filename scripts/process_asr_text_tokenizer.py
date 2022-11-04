@@ -264,12 +264,12 @@ def __process_data(
 
         if not os.path.exists(tokenizer_dir):
             os.makedirs(tokenizer_dir)
-        '''
-        tokenizer = BertWordPieceTokenizer(lowercase=lower_case)
+
+        tokenizer = BertWordPieceTokenizer(lowercase=False)
 
         tokenizer.train(text_path, vocab_size=vocab_size)
         tokenizer.save_model(tokenizer_dir)
-        '''
+
     return tokenizer_dir
 
 
