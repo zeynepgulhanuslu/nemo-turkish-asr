@@ -33,7 +33,7 @@ model:
   skip_nan_grad: false
 
   train_ds:
-    manifest_filepath: '/content/drive/MyDrive/common_voice_tr_11/manifests-nemo/nemo-train-manifest.json'
+    manifest_filepath: '/content/drive/MyDrive/common_voice_tr_11/manifests-nemo/nemo-train-manifest-processed.json'
     sample_rate: ${model.sample_rate}
     batch_size: 16 # you may increase batch_size if your memory allows
     shuffle: true
@@ -52,7 +52,7 @@ model:
     bucketing_batch_size: null
 
   validation_ds:
-    manifest_filepath: '/content/drive/MyDrive/common_voice_tr_11/manifests-nemo/nemo-dev-manifest.json'
+    manifest_filepath: '/content/drive/MyDrive/common_voice_tr_11/manifests-nemo/nemo-dev-manifest-processed.json'
     sample_rate: ${model.sample_rate}
     batch_size: 16 # you may increase batch_size if your memory allows
     shuffle: false
@@ -61,7 +61,7 @@ model:
     use_start_end_token: false
 
   test_ds:
-    manifest_filepath: '/content/drive/MyDrive/common_voice_tr_11/manifests-nemo/nemo-test-manifest.json'
+    manifest_filepath: '/content/drive/MyDrive/common_voice_tr_11/manifests-nemo/nemo-test-manifest-processed.json'
     sample_rate: ${model.sample_rate}
     batch_size: 16 # you may increase batch_size if your memory allows
     shuffle: false
