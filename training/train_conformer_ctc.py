@@ -12,21 +12,9 @@ from omegaconf import OmegaConf
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--manifests-dir",
+        "--conf",
         type=str,
-        help="""Input directory.
-        """,
-    )
-    parser.add_argument(
-        "--lang-dir",
-        type=str,
-        help="""Output directory.
-        """,
-    )
-    parser.add_argument(
-        "--phone-file",
-        type=str,
-        help="""phone dict file.
+        help="""Config file
         """,
     )
 
@@ -55,4 +43,5 @@ def main(cfg):
 
 
 if __name__ == '__main__':
+
     main()
