@@ -32,9 +32,7 @@ def main(cfg):
 
     # Initialize the weights of the model from another model, if provided via config
     asr_model.maybe_init_from_pretrained_checkpoint(cfg)
-    # setup data loaders with new configs
-    asr_model.setup_training_data(cfg.train_ds)
-    asr_model.setup_multiple_validation_data(cfg.validation_ds)
+
     print('training starts here')
     trainer.fit(asr_model)
 
