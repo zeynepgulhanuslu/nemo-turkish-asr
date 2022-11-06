@@ -179,7 +179,7 @@ if __name__ == '__main__':
         logging.info("Model encoder has been un-frozen")
 
     char_model.cfg.labels = list(train_dev_set)
-    print('labels:',char_model.cfg.labels)
+
     cfg = copy.deepcopy(char_model.cfg)
 
     # Setup train, validation, test configs
@@ -270,7 +270,7 @@ if __name__ == '__main__':
     print("model configuration completed")
 
     config = OmegaConf.structured(config)
-
+    print('labels:', char_model.cfg.labels)
     logdir = exp_manager.exp_manager(trainer, config)
     print('training starts here')
     trainer.fit(char_model)
