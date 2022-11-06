@@ -40,7 +40,9 @@ def main(cfg):
     cfg.validation_ds.labels = list(train_dev_set)
     print('labels:', cfg.labels)
     asr_model = EncDecCTCModel(cfg=cfg.model, trainer=trainer)
-
+    asr_model.change_vocabulary(new_vocabulary=list(train_dev_set))
+    asr_model.setup_training_data(cfg.train_ds)
+    asr_model.setup_multiple_validation_data(cfg.validation_ds)
 
     # Initialize the weights of the model from another model, if provided via config
     asr_model.maybe_init_from_pretrained_checkpoint(cfg)
@@ -54,5 +56,4 @@ def main(cfg):
 
 
 if __name__ == '__main__':
-
     main()
