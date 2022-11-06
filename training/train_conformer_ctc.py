@@ -36,8 +36,6 @@ def main(cfg):
     dev_charset = get_charset(dev_manifest_data)
     train_dev_set = set.union(set(train_charset.keys()), set(dev_charset.keys()))
 
-    cfg.labels = list(train_dev_set)
-    cfg.validation_ds.labels = list(train_dev_set)
     print('labels:', cfg.labels)
     asr_model = EncDecCTCModel(cfg=cfg.model, trainer=trainer)
     asr_model.change_vocabulary(new_vocabulary=list(train_dev_set))
