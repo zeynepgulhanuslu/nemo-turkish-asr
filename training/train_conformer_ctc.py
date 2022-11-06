@@ -23,7 +23,7 @@ def get_args():
     return parser.parse_args()
 
 
-@hydra_runner(config_path="../conf", config_name="conformer_ctc_bpe")
+@hydra_runner(config_path="../conf", config_name="conformer_ctc_char")
 def main(cfg):
     logging.info(f'Hydra config: {OmegaConf.to_yaml(cfg)}')
 
