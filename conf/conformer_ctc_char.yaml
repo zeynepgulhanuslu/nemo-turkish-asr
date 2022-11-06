@@ -7,8 +7,8 @@ name: "Conformer-CTC-Char"
 
 model:
   sample_rate: 16000
-  labels:  [" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-            "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "'"]
+  labels:  [" ", "a", "b", "c", "ç","d", "e", "f", "g","ğ", "h","ı", "i", "j", "k", "l", "m",
+            "n", "o", "ö", "p", "q", "r", "s", "ş", "t", "u","ü", "v", "w", "x", "y", "z", "'"]
   log_prediction: true # enables logging sample predictions in the output during training
   ctc_reduction: 'mean_batch'
   skip_nan_grad: false
@@ -160,7 +160,7 @@ trainer:
 
 
 exp_manager:
-  exp_dir: null
+  exp_dir: '/content/drive/MyDrive/common_voice_tr_11/nemo-cv/conformer-ctc'
   name: ${name}
   create_tensorboard_logger: true
   create_checkpoint_callback: true

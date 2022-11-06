@@ -9,8 +9,6 @@ from omegaconf import OmegaConf
 
 from dataloader.manifest_util import read_manifest, get_charset
 
-asr_model = nemo_asr.models.EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_small")
-
 
 @hydra_runner(config_path="../conf", config_name="conformer_ctc_char")
 def main(cfg):
@@ -18,21 +16,8 @@ def main(cfg):
 
     trainer = pl.Trainer(**cfg.trainer)
     exp_manager(trainer, cfg.get("exp_manager", None))
-    train_manifest_data = read_manifest(str(cfg.model.train_ds.manifest_filepath))
-    train_charset = get_charset(train_manifest_data)
 
-    dev_manifest_data = read_manifest(str(cfg.model.validation_ds.manifest_filepath))
-    dev_charset = get_charset(dev_manifest_data)
-    train_dev_set = set.union(set(train_charset.keys()), set(dev_charset.keys()))
-
-    cfg.labels = list(train_dev_set)
-    cfg.validation_ds.labels = list(train_dev_set)
-    print('labels:', cfg.labels)
-
-    asr_model = EncDecCTCModel(cfg=cfg.model, trainer=trainer)
-    asr_model.change_vocabulary(new_vocabulary=list(train_dev_set))
-    asr_model.setup_training_data(cfg.train_ds)
-    asr_model.setup_multiple_validation_data(cfg.validation_ds)
+    asr_model = nemo_asr.models.EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_medium")
 
     # Initialize the weights of the model from another model, if provided via config
     asr_model.maybe_init_from_pretrained_checkpoint(cfg)
@@ -46,5 +31,4 @@ def main(cfg):
 
 
 if __name__ == '__main__':
-
     main()
