@@ -14,7 +14,7 @@ def main():
     asr_model = nemo_asr.models.EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_medium")
 
     from omegaconf import OmegaConf, open_dict
-    params = OmegaConf.load("conformer_ctc_char.yaml")
+    params = OmegaConf.load("conf/conformer_ctc_char.yaml")
     print(OmegaConf.to_yaml(params))
 
     params.model.spec_augment.rect_masks = 0
