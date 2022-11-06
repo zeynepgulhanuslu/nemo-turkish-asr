@@ -36,12 +36,12 @@ def main(cfg):
     dev_charset = get_charset(dev_manifest_data)
     train_dev_set = set.union(set(train_charset.keys()), set(dev_charset.keys()))
 
-    print('labels:', cfg.labels)
     asr_model = EncDecCTCModel(cfg=cfg.model, trainer=trainer)
+    '''
     asr_model.change_vocabulary(new_vocabulary=list(train_dev_set))
     asr_model.setup_training_data(cfg.train_ds)
     asr_model.setup_multiple_validation_data(cfg.validation_ds)
-
+    '''
     # Initialize the weights of the model from another model, if provided via config
     asr_model.maybe_init_from_pretrained_checkpoint(cfg)
 
