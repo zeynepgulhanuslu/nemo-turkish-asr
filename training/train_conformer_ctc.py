@@ -29,8 +29,6 @@ def main(cfg):
 
     trainer = pl.Trainer(**cfg.trainer)
     exp_manager(trainer, cfg.get("exp_manager", None))
-
-    asr_model = EncDecCTCModel(cfg=cfg.model, trainer=trainer)
     train_manifest_data = read_manifest((cfg.model, 'train_ds'))
     train_charset = get_charset(train_manifest_data)
 
@@ -38,9 +36,11 @@ def main(cfg):
     dev_charset = get_charset(dev_manifest_data)
     train_dev_set = set.union(set(train_charset.keys()), set(dev_charset.keys()))
 
-    asr_model.cfg.labels = list(train_dev_set)
-    asr_model.cfg.validation_ds.labels = list(train_dev_set)
-    print('labels:', asr_model.cfg.labels)
+    cfg.labels = list(train_dev_set)
+    cfg.validation_ds.labels = list(train_dev_set)
+    print('labels:', cfg.labels)
+    asr_model = EncDecCTCModel(cfg=cfg.model, trainer=trainer)
+
 
     # Initialize the weights of the model from another model, if provided via config
     asr_model.maybe_init_from_pretrained_checkpoint(cfg)
