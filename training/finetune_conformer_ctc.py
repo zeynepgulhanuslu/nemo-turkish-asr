@@ -10,7 +10,8 @@ from nemo.utils import exp_manager
 from omegaconf import open_dict, OmegaConf
 from torch import nn
 from nemo.core.config import hydra_runner
-
+import pytorch_lightning as pl
+from nemo.utils import logging
 
 @hydra_runner(config_path="../conf", config_name="conformer_ctc_bpe_finetune")
 def main(cfg):
