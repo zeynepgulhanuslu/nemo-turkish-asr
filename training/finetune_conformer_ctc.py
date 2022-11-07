@@ -16,7 +16,7 @@ from nemo.utils import logging
 @hydra_runner(config_path="../conf", config_name="conformer_ctc_bpe_finetune")
 def main(cfg):
     trainer = pl.Trainer(**cfg.trainer)
-    exp_manager(trainer, cfg.get("exp_manager", None))
+
     asr_model = EncDecCTCModelBPE(cfg=cfg.model, trainer=trainer)
     asr_model = EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_small")
     asr_model.change_vocabulary(new_tokenizer_dir=cfg.model.tokenizer.dir, new_tokenizer_type=cfg.model.tokenizer.type)
