@@ -18,13 +18,6 @@ def main(cfg):
     logging.info(f'Hydra config: {OmegaConf.to_yaml(cfg)}')
 
     trainer = pl.Trainer(**cfg.trainer)
-    exp_manager(trainer, cfg.get("exp_manager", None))
-    train_manifest_data = read_manifest(str(cfg.model.train_ds.manifest_filepath))
-    train_charset = get_charset(train_manifest_data)
-
-    dev_manifest_data = read_manifest(str(cfg.model.validation_ds.manifest_filepath))
-    dev_charset = get_charset(dev_manifest_data)
-    train_dev_set = set.union(set(train_charset.keys()), set(dev_charset.keys()))
 
     asr_model = EncDecCTCModelBPE(cfg=cfg.model, trainer=trainer)
 
