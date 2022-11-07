@@ -11,16 +11,6 @@ from omegaconf import OmegaConf
 from dataloader.manifest_util import read_manifest, get_charset
 
 
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--conf",
-        type=str,
-        help="""Config file
-        """,
-    )
-
-    return parser.parse_args()
 
 
 @hydra_runner(config_path="../conf", config_name="conformer_ctc_bpe")

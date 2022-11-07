@@ -103,14 +103,14 @@ parser.add_argument(
     default="bpe",
     choices=['bpe', 'unigram', 'char', 'word'],
     help='Type of the SentencePiece model. Can be `bpe`, `unigram`, `char` or `word`.'
-    'Used only if --tokenizer == `spe`',
+         'Used only if --tokenizer == `spe`',
 )
 parser.add_argument(
     '--spe_character_coverage',
     type=float,
     default=1.0,
     help="Character coverage percentage for SentencePiece tokenization. For languages "
-    "with large vocabulary, should be close to 0.9995, otherwise kept as 1.0",
+         "with large vocabulary, should be close to 0.9995, otherwise kept as 1.0",
 )
 parser.add_argument('--spe_bos', action='store_true', help='Add <s> token to SentencePiece Tokenizer.')
 parser.add_argument('--spe_eos', action='store_true', help='Add </s> token to SentencePiece Tokenizer.')
@@ -127,7 +127,7 @@ parser.add_argument(
     type=int,
     default=-1,
     help='Limit the maximum number of tokens in each SentencePiece subword. '
-    'Must be a positive integer > 0. By default places no limit on subword length.',
+         'Must be a positive integer > 0. By default places no limit on subword length.',
 )
 parser.add_argument(
     '--spe_no_split_by_unicode_script',
@@ -142,7 +142,7 @@ args = parser.parse_args()
 
 
 def __build_document_from_manifests(
-    data_root: str, manifests: str,
+        data_root: str, manifests: str,
 ):
     if ',' in manifests:
         manifests = manifests.split(',')
@@ -179,20 +179,20 @@ def __build_document_from_manifests(
 
 
 def __process_data(
-    text_path: str,
-    dst_folder: str,
-    vocab_size: int,
-    tokenizer_type: str,
-    spe_type: str,
-    spe_character_coverage: float,
-    spe_train_extremely_large_corpus: bool,
-    spe_sample_size: int,
-    spe_max_sentencepiece_length: int,
-    spe_split_by_unicode_script: bool,
-    spe_bos: bool,
-    spe_eos: bool,
-    spe_pad: bool,
-    lower_case: bool,
+        text_path: str,
+        dst_folder: str,
+        vocab_size: int,
+        tokenizer_type: str,
+        spe_type: str,
+        spe_character_coverage: float,
+        spe_train_extremely_large_corpus: bool,
+        spe_sample_size: int,
+        spe_max_sentencepiece_length: int,
+        spe_split_by_unicode_script: bool,
+        spe_bos: bool,
+        spe_eos: bool,
+        spe_pad: bool,
+        lower_case: bool,
 ):
     """
     Converts flac to wav and build manifests's json
@@ -217,7 +217,7 @@ def __process_data(
     Returns:
     """
     if tokenizer_type == 'spe':
-
+        print('tokenizer type spe')
         # Prepare directory of tokenizer
         if spe_max_sentencepiece_length > 0:
             tokenizer_dir = os.path.join(dst_folder, 'tokenizer_{}_{}_v{}_max_{}').format(
@@ -241,7 +241,7 @@ def __process_data(
         if os.path.exists(os.path.join(tokenizer_dir, 'tokenizer.model')):
             logging.warning("Model file already exists, overriding old model file !")
             os.remove(os.path.join(tokenizer_dir, 'tokenizer.model'))
-
+        print('spe_split_by_unicode_script', spe_split_by_unicode_script)
         # Build tokenizer
         tokenizer_path, vocab_path = create_spt_model(
             data_file=text_path,
@@ -260,6 +260,7 @@ def __process_data(
         )
 
     else:
+        print('else')
         tokenizer_dir = os.path.join(dst_folder, 'tokenizer_{}_v{}').format(tokenizer_type, vocab_size)
 
         if not os.path.exists(tokenizer_dir):
