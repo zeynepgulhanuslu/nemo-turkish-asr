@@ -160,9 +160,9 @@ def __build_document_from_manifests(
         return document_path
 
     num_lines = 0
-    with open(document_path, 'w') as out_writer:
+    with open(document_path, 'w', encoding='utf-8') as out_writer:
         for manifest in manifests:
-            with open(manifest, 'r') as in_reader:
+            with open(manifest, 'r', encoding='utf-8') as in_reader:
                 for line in in_reader:
                     item = json.loads(line)
                     text = item['text']
