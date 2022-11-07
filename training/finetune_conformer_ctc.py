@@ -38,7 +38,7 @@ def main():
     dev_manifest_file = os.path.join(manifest_dir, 'nemo-dev-manifest_processed.json')
 
     pretrained = nemo_asr.models.EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_small")
-    pretrainedConfig = DictConfig(pretrained.cfg)
+    #pretrainedConfig = DictConfig(pretrained.cfg)
     pretrainedConfig = copy.deepcopy(pretrained.cfg)
 
 
