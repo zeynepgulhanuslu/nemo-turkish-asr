@@ -23,7 +23,7 @@ def get_args():
     return parser.parse_args()
 
 
-@hydra_runner(config_path="../conf", config_name="conformer_ctc_char_finetune")
+@hydra_runner(config_path="../conf", config_name="conformer_ctc_bpe")
 def main(cfg):
     logging.info(f'Hydra config: {OmegaConf.to_yaml(cfg)}')
 
@@ -36,7 +36,6 @@ def main(cfg):
     dev_charset = get_charset(dev_manifest_data)
     train_dev_set = set.union(set(train_charset.keys()), set(dev_charset.keys()))
 
-    #asr_model = EncDecCTCModel(cfg=cfg.model, trainer=trainer)
     asr_model = EncDecCTCModelBPE(cfg=cfg.model, trainer=trainer)
 
     # Initialize the weights of the model from another model, if provided via config
