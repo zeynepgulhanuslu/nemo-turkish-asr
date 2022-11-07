@@ -39,16 +39,21 @@ def main():
 
     pretrained = nemo_asr.models.EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_small")
     pretrainedConfig = DictConfig(pretrained.cfg)
-    pretrainedConfig.train_ds.manifest_filepath = train_manifest_file
-    pretrainedConfig.validation_ds.manifest_filepath = dev_manifest_file
-    pretrainedConfig.test_ds.manifest_filepath = test_manifest_file
-    pretrainedConfig['train_ds']['is_tarred'] = False
-    pretrainedConfig['train_ds']['tarred_audio_filepaths'] = None
-    pretrainedConfig['validation_ds']['is_tarred'] = False
-    pretrainedConfig['validation_ds']['tarred_audio_filepaths'] = None
-    pretrained.set_trainer(trainer)
-    pretrained.setup_training_data(pretrainedConfig['train_ds'])
-    pretrained.setup_validation_data(pretrainedConfig['validation_ds'])
+    pretrainedConfig = copy.deepcopy(pretrained.cfg)
+
+
+    # Setup train, validation, test configs
+    with open_dict(pretrainedConfig):
+        pretrainedConfig.train_ds.manifest_filepath = train_manifest_file
+        pretrainedConfig.validation_ds.manifest_filepath = dev_manifest_file
+        pretrainedConfig.test_ds.manifest_filepath = test_manifest_file
+        pretrainedConfig['train_ds']['is_tarred'] = False
+        pretrainedConfig['train_ds']['tarred_audio_filepaths'] = None
+        pretrainedConfig['validation_ds']['is_tarred'] = False
+        pretrainedConfig['validation_ds']['tarred_audio_filepaths'] = None
+        pretrained.set_trainer(trainer)
+        pretrained.setup_training_data(pretrainedConfig['train_ds'])
+        pretrained.setup_validation_data(pretrainedConfig['validation_ds'])
 
     from nemo.utils import exp_manager
     from omegaconf import OmegaConf
