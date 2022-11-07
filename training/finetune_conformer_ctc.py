@@ -40,6 +40,10 @@ def main():
     pretrained = nemo_asr.models.EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_small")
     # pretrainedConfig = DictConfig(pretrained.cfg)
     pretrainedConfig = copy.deepcopy(pretrained.cfg)
+    if torch.cuda.is_available():
+        accelerator = 'gpu'
+    else:
+        accelerator = 'cpu'
 
     trainer = ptl.Trainer(gpus=[device],
                           accelerator=accelerator,
