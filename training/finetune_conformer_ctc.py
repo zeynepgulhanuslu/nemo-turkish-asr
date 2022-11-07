@@ -37,9 +37,7 @@ def main():
     test_manifest_file = os.path.join(manifest_dir, 'nemo-test-manifest_processed.json')
     dev_manifest_file = os.path.join(manifest_dir, 'nemo-dev-manifest_processed.json')
 
-    pretrained = nemo_asr.models.EncDecRNNTBPEModel.from_pretrained(
-        model_name="stt_en_conformer_ctc_small")
-
+    pretrained = nemo_asr.models.EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_small")
     pretrainedConfig = DictConfig(pretrained.cfg)
     pretrainedConfig.train_ds.manifest_filepath = train_manifest_file
     pretrainedConfig.validation_ds.manifest_filepath = dev_manifest_file
