@@ -6,6 +6,7 @@ def convert_wav_scp_path(input, out):
         id = tokens[0]
         path = tokens[5]
         path_formatted = path.replace('clips', 'clips-wav').replace('mp3', 'wav')
+
         fo.write(id + ' ' + path_formatted + '\n')
 
 

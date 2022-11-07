@@ -38,6 +38,15 @@ def main():
     dev_manifest_file = os.path.join(manifest_dir, 'nemo-dev-manifest_processed.json')
 
     pretrained = nemo_asr.models.EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_small")
+
+    train_manifest_data = read_manifest(train_manifest_file)
+    train_charset = get_charset(train_manifest_data)
+
+    dev_manifest_data = read_manifest(dev_manifest_file)
+    dev_charset = get_charset(dev_manifest_data)
+
+    train_dev_set = set.union(set(train_charset.keys()), set(dev_charset.keys()))
+    pretrained.change_vocabulary(new_vocabulary=list(train_dev_set))
     # pretrainedConfig = DictConfig(pretrained.cfg)
     pretrainedConfig = copy.deepcopy(pretrained.cfg)
     if torch.cuda.is_available():
