@@ -4,6 +4,7 @@ import logging
 import os
 from collections import defaultdict
 import pytorch_lightning as ptl
+from nemo.collections.asr.models import EncDecCTCModel,EncDecCTCModelBPE
 import nemo.collections.asr as nemo_asr
 import torch
 from nemo.utils import exp_manager
@@ -17,7 +18,6 @@ from nemo.utils import logging
 def main(cfg):
     trainer = pl.Trainer(**cfg.trainer)
 
-    asr_model = EncDecCTCModelBPE(cfg=cfg.model, trainer=trainer)
     asr_model = EncDecCTCModelBPE.from_pretrained(model_name="stt_en_conformer_ctc_small")
     asr_model.change_vocabulary(new_tokenizer_dir=cfg.model.tokenizer.dir, new_tokenizer_type=cfg.model.tokenizer.type)
     default_cfg = copy.deepcopy(asr_model.cfg)
