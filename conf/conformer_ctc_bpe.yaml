@@ -35,9 +35,9 @@ model:
   train_ds:
     manifest_filepath: '/ORTAK/zeynep/NeMo/sau-manifest-data/nemo-train-manifest_processed.json'
     sample_rate: ${model.sample_rate}
-    batch_size: 16 # you may increase batch_size if your memory allows
+    batch_size: 8 # you may increase batch_size if your memory allows
     shuffle: true
-    num_workers: 8
+    num_workers: 2
     pin_memory: true
     use_start_end_token: false
     trim_silence: false
@@ -54,18 +54,18 @@ model:
   validation_ds:
     manifest_filepath: '/ORTAK/zeynep/NeMo/sau-manifest-data/nemo-dev-manifest_processed.json'
     sample_rate: ${model.sample_rate}
-    batch_size: 16 # you may increase batch_size if your memory allows
+    batch_size: 8 # you may increase batch_size if your memory allows
     shuffle: false
-    num_workers: 8
+    num_workers: 2
     pin_memory: true
     use_start_end_token: false
 
   test_ds:
     manifest_filepath: '/ORTAK/zeynep/NeMo/sau-manifest-data/nemo-test-manifest_processed.json'
     sample_rate: ${model.sample_rate}
-    batch_size: 16 # you may increase batch_size if your memory allows
+    batch_size: 8 # you may increase batch_size if your memory allows
     shuffle: false
-    num_workers: 8
+    num_workers: 2
     pin_memory: true
     use_start_end_token: false
 
