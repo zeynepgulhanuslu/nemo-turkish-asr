@@ -185,7 +185,7 @@ trainer:
   benchmark: false # needs to be false for models with variable-length speech input as it slows down training
 
 exp_manager:
-  exp_dir: '/ORTAK/zeynep/commonvoice-tr/cnemo-onformer-ctc'
+  exp_dir: '/ORTAK/zeynep/commonvoice-tr/nemo-conformer-ctc'
   name: ${name}
   create_tensorboard_logger: true
   create_checkpoint_callback: true
