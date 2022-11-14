@@ -35,7 +35,7 @@ model:
   train_ds:
     manifest_filepath: '/ORTAK/zeynep/NeMo/sau-manifest-data/nemo-train-manifest_processed.json'
     sample_rate: ${model.sample_rate}
-    batch_size: 8 # you may increase batch_size if your memory allows
+    batch_size: 16 # you may increase batch_size if your memory allows
     shuffle: true
     num_workers: 16
     pin_memory: true
@@ -54,7 +54,7 @@ model:
   validation_ds:
     manifest_filepath: '/ORTAK/zeynep/NeMo/sau-manifest-data/nemo-dev-manifest_processed.json'
     sample_rate: ${model.sample_rate}
-    batch_size: 8 # you may increase batch_size if your memory allows
+    batch_size: 16 # you may increase batch_size if your memory allows
     shuffle: false
     num_workers: 16
     pin_memory: true
@@ -63,7 +63,7 @@ model:
   test_ds:
     manifest_filepath: '/ORTAK/zeynep/NeMo/sau-manifest-data/nemo-test-manifest_processed.json'
     sample_rate: ${model.sample_rate}
-    batch_size: 8 # you may increase batch_size if your memory allows
+    batch_size: 16 # you may increase batch_size if your memory allows
     shuffle: false
     num_workers: 16
     pin_memory: true
@@ -164,7 +164,7 @@ model:
       min_lr: 1e-6
 
 trainer:
-  devices: -1 # number of GPUs, -1 would use all available GPUs
+  devices: 1 # number of GPUs, -1 would use all available GPUs
   num_nodes: 1
   max_epochs: 100
   max_steps: -1 # computed at runtime if not set
