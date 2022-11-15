@@ -19,7 +19,7 @@ def main(cfg):
 
     trainer = pl.Trainer(**cfg.trainer)
     exp_manager(trainer, cfg.get("exp_manager", None))
-    train_manifest_data = read_manifest(str(cfg.model.train_ds.manifest_filepath), 450000)
+    train_manifest_data = read_manifest(str(cfg.model.train_ds.manifest_filepath), 300000)
     train_charset = get_charset(train_manifest_data)
 
     dev_manifest_data = read_manifest(str(cfg.model.validation_ds.manifest_filepath))
