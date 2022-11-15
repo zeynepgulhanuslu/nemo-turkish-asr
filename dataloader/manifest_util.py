@@ -6,13 +6,16 @@ import json
 from collections import defaultdict
 
 
-def read_manifest(path):
+def read_manifest(path, limit=0):
     manifest = []
+    count = 0
     with open(path, 'r', encoding='utf-8') as f:
         for line in tqdm(f, desc="Reading manifest data"):
             line = line.replace("\n", "")
             data = json.loads(line)
-            manifest.append(data)
+            if limit != 0 and count < limit:
+                manifest.append(data)
+                count += 1
     return manifest
 
 
@@ -37,4 +40,3 @@ def get_charset(manifest_data):
         for character in text:
             charset[character] += 1
     return charset
-
