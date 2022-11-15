@@ -6,16 +6,15 @@ import json
 from collections import defaultdict
 
 
-def read_manifest(path, limit=0):
+def read_manifest(path):
     manifest = []
-    count = 0
+
     with open(path, 'r', encoding='utf-8') as f:
         for line in tqdm(f, desc="Reading manifest data"):
             line = line.replace("\n", "")
             data = json.loads(line)
-            if limit != 0 and count < limit:
-                manifest.append(data)
-                count += 1
+            manifest.append(data)
+
     return manifest
 
 
