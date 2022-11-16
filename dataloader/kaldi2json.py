@@ -35,6 +35,13 @@ def main():
         action="store_true",
         help="whether to include auxiliary data in the manifest",
     )
+
+    parser.add_argument(
+        "--limit",
+        default=1000000,
+        type=int,
+        help="for limiting the training manifest data",
+    )
     args = parser.parse_args()
 
     kaldi_folder = args.data_dir
@@ -48,7 +55,7 @@ def main():
         "gender": os.path.join(kaldi_folder, "utt2gender"),
     }
     output_names = list(required_data.keys())
-
+    limit = args.limit
     # check if required files exist
     for name, file in required_data.items():
         if not os.path.exists(file):
@@ -109,9 +116,12 @@ def main():
 
     # write data to .json
     entries = wav_segments_text[output_names].to_dict(orient="records")
+    count = 0
     with open(args.manifest, "w", encoding="utf-8") as fout:
         for m in entries:
-            fout.write(json.dumps(m, ensure_ascii=False) + "\n")
+            if (count < limit):
+                fout.write(json.dumps(m, ensure_ascii=False) + "\n")
+                count += 1
 
 
 if __name__ == "__main__":

@@ -88,7 +88,7 @@ if __name__ == '__main__':
     epochs = args.epochs
     device = args.device
 
-    train_manifest_file = os.path.join(manifest_dir, 'nemo-train-manifest.json')
+    train_manifest_file = os.path.join(manifest_dir, 'nemo-train-manifest-sub.json')
     test_manifest_file = os.path.join(manifest_dir, 'nemo-test-manifest.json')
     dev_manifest_file = os.path.join(manifest_dir, 'nemo-dev-manifest.json')
 

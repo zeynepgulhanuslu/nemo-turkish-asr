@@ -33,7 +33,7 @@ model:
   skip_nan_grad: false
 
   train_ds:
-    manifest_filepath: '/ORTAK/zeynep/NeMo/sau-manifest-data/nemo-train-manifest_sub_processed.json'
+    manifest_filepath: '/ORTAK/zeynep/NeMo/sau-manifest-data/nemo-train-manifest-sub_processed.json'
     sample_rate: ${model.sample_rate}
     batch_size: 16 # you may increase batch_size if your memory allows
     shuffle: true
